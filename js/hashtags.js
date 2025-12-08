@@ -1,4 +1,5 @@
 import {isEscapeKey} from './util.js';
+import { openBigPicture } from './bigPicture.js';
 
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_SYMBOLS = 20;
