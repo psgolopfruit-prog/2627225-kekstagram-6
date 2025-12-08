@@ -21,7 +21,7 @@ const createComment = (comment) => {
   const textComment = document.createElement('p');
 
   newComment.classList.add('social__comment');
-  imgComment.classList.add('social--picture');
+  imgComment.classList.add('social__picture'); // ← исправлено с social--picture
   textComment.classList.add('social__text');
 
   imgComment.src = comment.avatar;
@@ -66,7 +66,7 @@ const closeBigPicture = () => {
   
   commentsCount = COMMENTS_STEP;
   currentComments = [];
-  socialFooterText.value = '';
+  socialFooterText.value = ''; // ← БЕЗ ПРОБЕЛА ПОСЛЕ ;
 };
 
 const onBigPictureEscKeyDown = (evt) => {
