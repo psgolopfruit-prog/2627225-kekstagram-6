@@ -17,6 +17,18 @@ const pristine = new Pristine(form, {
   errorTextParent: 'img-upload__field-wrapper',
 });
 
+// ФУНКЦИИ В ПРАВИЛЬНОМ ПОРЯДКЕ:
+const isTextFieldFocused = () => document.activeElement === inputHashtag
+  || document.activeElement === inputComment;
+
+const hideModal = () => {
+  form.reset();
+  pristine.reset();
+  formOverlay.classList.add('hidden');
+  body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
+};
+
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt) && !isTextFieldFocused()) {
     evt.preventDefault();
@@ -29,17 +41,6 @@ const showModal = () => {
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 };
-
-const hideModal = () => {
-  form.reset();
-  pristine.reset();
-  formOverlay.classList.add('hidden');
-  body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
-};
-
-const isTextFieldFocused = () => document.activeElement === inputHashtag
-  || document.activeElement === inputComment;
 
 let errorMessage = '';
 
