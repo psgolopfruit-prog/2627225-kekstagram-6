@@ -1,5 +1,4 @@
 import {isEscapeKey} from './util.js';
-import { openBigPicture } from './bigPicture.js';
 
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_SYMBOLS = 20;
@@ -17,6 +16,13 @@ const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
 });
+
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt) && !isTextFieldFocused()) {
+    evt.preventDefault();
+    hideModal();
+  }
+};
 
 const showModal = () => {
   formOverlay.classList.remove('hidden');
@@ -97,13 +103,6 @@ const onHashtagInput = () => {
 };
 
 inputHashtag.addEventListener('input', onHashtagInput);
-
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt) && !isTextFieldFocused()) {
-    evt.preventDefault();
-    hideModal();
-  }
-};
 
 const onCancelButtonClick = () => {
   hideModal();
