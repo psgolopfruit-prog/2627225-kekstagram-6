@@ -1,2 +1,3 @@
 import './pictures.js';
-import './hashtags.js';
+import './bigPicture.js';
+import './form.js';
