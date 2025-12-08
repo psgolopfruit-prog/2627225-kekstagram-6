@@ -38,18 +38,17 @@ const generatePhotoId = createRandomNumbers(1, 25);
 const urlId = createRandomNumbers(1, 25);
 const generateNumbersOfLikes = createRandomNumbers(15, 200);
 const userId = createRandomNumbers(1, 100000);
-const avatarImg = createRandomNumbers(1, 6);
 
 const createComment = () => ({
   id: userId(),
-  avatar: `img/avatar-${ avatarImg() }.svg`,
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
 
 const createPhotoDescription = () => ({
   id: generatePhotoId(),
-  url: `photos/${ urlId() }.jpg`,
+  url: `photos/${urlId()}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: generateNumbersOfLikes(),
   comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
