@@ -1,8 +1,10 @@
 import './pictures.js';
 import {loadData} from './fetch.js';
 import {renderPhotos} from './pictures.js';
-import './hashtags.js';
+import './form.js';
+import './filters.js';
 import './slider-and-control.js';
+import './own-photos.js';
 
 let photos;
 

@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util.js';
+import { hideModal, toggleSubmitButton } from './form.js';
 
 const successMessage = document.querySelector('#success').content.querySelector('.success');
 const errorMessage = document.querySelector('#error').content.querySelector('.error');
@@ -34,10 +35,13 @@ const showMessage = (messageElement, closeButtonClass) => {
 
 const showSuccessMessage = () => {
   showMessage(successMessage, '.success__button');
+  toggleSubmitButton();
+  document.querySelector('.success__button').addEventListener('click', hideModal());
 };
 
 const showErrorMessage = () => {
   showMessage(errorMessage, '.error__button');
+  toggleSubmitButton();
 };
 
 export { showSuccessMessage, showErrorMessage };

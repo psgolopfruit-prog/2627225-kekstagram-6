@@ -72,17 +72,13 @@ const resetSlider = () => {
 
 const createSlider = (effectName) => {
   const effect = Effects[effectName];
-  
   resetSlider();
-  
   if (effectName === 'none') {
     picture.style.filter = '';
     sliderField.classList.add('hidden');
     return;
   }
-  
   sliderField.classList.remove('hidden');
-  
   noUiSlider.create(sliderElement, {
     range: {
       min: effect.min,
