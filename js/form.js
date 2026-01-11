@@ -1,5 +1,7 @@
 import {isEscapeKey} from './util.js';
 import {resetSliderToNone, resetControlToStandart} from './slider-and-control.js';
+import { uploadData } from './fetch.js';
+import { showErrorMessage, showSuccessMessage } from './messages.js';
 
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_SYMBOLS = 20;
@@ -19,16 +21,14 @@ const pristine = new Pristine(form, {
   errorClass: 'form__item--invalid',
   successClass: 'form__item--valid',
   errorTextParent: 'img-upload__field-wrapper',
-  errorTextTag: 'span',
-  errorTextClass: 'form__error'
 });
 
 let errorMessage = '';
 
 const error = () => errorMessage;
 
-const isTextFieldFocused = () => 
-  document.activeElement === inputHashtag || 
+const isTextFieldFocused = () =>
+  document.activeElement === inputHashtag ||
   document.activeElement === inputComment;
 
 const hashtagsHandler = (value) => {
@@ -81,12 +81,6 @@ const hashtagsHandler = (value) => {
   });
 };
 
-const showModal = () => {
-  formOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
-};
-
 const hideModal = () => {
   form.reset();
   pristine.reset();
@@ -97,11 +91,20 @@ const hideModal = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt) && !isTextFieldFocused()) {
+const isErrorMessageOpen = () =>
+  document.querySelector('.error') !== null;
+
+function onDocumentKeydown(evt) {
+  if (isEscapeKey(evt) && !isTextFieldFocused() && !isErrorMessageOpen()) {
     evt.preventDefault();
     hideModal();
   }
+}
+
+const showModal = () => {
+  formOverlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const onHashtagInput = () => {
@@ -120,9 +123,32 @@ const onFileInputChange = () => {
   showModal();
 };
 
+const toggleSubmitButton = (isDisabled = false) => {
+  submitButton.disabled = isDisabled;
+  submitButton.textContent = isDisabled ? 'Публикую...' : 'Опубликовать';
+};
+
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
+
+  if (isValid) {
+    toggleSubmitButton(true);
+    uploadData(
+      showSuccessMessage,
+      showErrorMessage,
+      'POST',
+      new FormData(evt.target)
+    );
+  }
+};
+
 // Инициализация
 pristine.addValidator(inputHashtag, hashtagsHandler, error);
 
+form.addEventListener('submit', onFormSubmit);
 inputHashtag.addEventListener('input', onHashtagInput);
 fileInput.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
+
+export { hideModal, toggleSubmitButton };
