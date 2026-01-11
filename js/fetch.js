@@ -24,4 +24,4 @@ const loadData = (onSuccess, onError, method = 'GET') => sendRequest(onSuccess, 
 
 const uploadData = (onSuccess, onError, method = 'POST', body) => sendRequest(onSuccess, onError, method, body);
 
-export {loadData, uploadData, sendRequest};
+export {loadData, uploadData};
