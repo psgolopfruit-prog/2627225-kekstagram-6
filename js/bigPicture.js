@@ -63,7 +63,6 @@ const onLoadCommentsButtonClick = () => {
 const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  
   commentsCount = COMMENTS_STEP;
   currentComments = [];
   socialFooterText.value = '';
