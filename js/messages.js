@@ -12,6 +12,14 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
+const onCloseMessageButtonClick = () => {
+  hideMessage();
+};
+
+const onSuccessButtonClick = () => {
+  hideModal();
+};
+
 function hideMessage() {
   const messageElement = document.querySelector('.success') || document.querySelector('.error');
   messageElement.remove();
@@ -30,13 +38,13 @@ const showMessage = (messageElement, closeButtonClass) => {
   body.append(messageElement);
   document.addEventListener('keydown', onDocumentKeydown);
   body.addEventListener('click', onBodyClick);
-  messageElement.querySelector(closeButtonClass).addEventListener('click', hideMessage);
+  messageElement.querySelector(closeButtonClass).addEventListener('click', onCloseMessageButtonClick);
 };
 
 const showSuccessMessage = () => {
   showMessage(successMessage, '.success__button');
   toggleSubmitButton();
-  document.querySelector('.success__button').addEventListener('click', hideModal());
+  document.querySelector('.success__button').addEventListener('click', onSuccessButtonClick);
 };
 
 const showErrorMessage = () => {
