@@ -86,6 +86,7 @@ const hideModal = () => {
   pristine.reset();
   resetSliderToNone();
   resetControlToStandart();
+  submitButton.disabled = false;
   formOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
